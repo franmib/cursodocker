@@ -1,5 +1,5 @@
 pipeline {
-    enviroment {
+    environment {
         dockerImageFile1 = "franmib/curso:devops"
         dockerImage1 = ""
     }

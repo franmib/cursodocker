@@ -2,6 +2,12 @@ pipeline {
     environment {
         dockerImageFile1 = "franmib/curso:devops"
         dockerImage1 = ""
+
+        dockerImageFile2 = "franmib/phpmyadmin:devops"
+        dockerImage2 = ""
+
+        dockerImageFile3 = "franmib/mysql:devops"
+        dockerImage3 = ""
     }
 
     agent any
@@ -11,16 +17,29 @@ pipeline {
                 git credentialsId: 'gitFranCursoDevops' , url: 'https://github.com/franmib/cursodocker.git', branch: 'main'
             }
         }
-        stage('Construir imagen de aplicación') {
+        stage('Construir imagenes') {
             steps {
                 dir('app') {
                     script {
                         dockerImage1 = docker.build dockerImageFile1 
                     }
                 }
+
+                dir('phpmyadmin') {
+                    script {
+                        dockerImage2 = docker.build dockerImageFile2 
+                    }
+                }
+
+                dir('mysql8') {
+                    script {
+                        dockerImage3 = docker.build dockerImageFile3
+                    }
+                }
             }
+
         }
-        stage('Subir imagen de aplicación') {
+        stage('Subir imagenes') {
             environment {
                 registryCredential = 'dockerFranDevOps'
             }
@@ -30,6 +49,24 @@ pipeline {
                         docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
 
                             dockerImage1.push("devops") //ahí va el tag
+                        }
+                    }
+                }
+
+                dir('phpmyadmin') {
+                    script {
+                        docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
+
+                            dockerImage2.push("devops") //ahí va el tag
+                        }
+                    }
+                }
+
+                dir('mysql8') {
+                    script {
+                        docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
+
+                            dockerImage3.push("devops") //ahí va el tag
                         }
                     }
                 }

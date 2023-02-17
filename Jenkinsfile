@@ -20,5 +20,20 @@ pipeline {
                 }
             }
         }
+        stage('Subir imagen de aplicación') {
+            environment {
+                registryCredential = 'dockerFranDevOps'
+            }
+            steps {
+                dir('app') {
+                    script {
+                        docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
+
+                            dockerImage1.push("devops") //ahí va el tag
+                        }
+                    }
+                }
+            }
+        }
     }
 }

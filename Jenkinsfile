@@ -83,6 +83,7 @@ pipeline {
                             sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status deployment app --kubeconfig=/home/digesetuser/.kube/config'          
                         }catch(error)       
                         {}
+                    }
                 }
             }                
         }

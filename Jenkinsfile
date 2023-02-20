@@ -72,5 +72,19 @@ pipeline {
                 }
             }
         }
+        stage('Correr POD'){
+            steps {
+                sshagent(['rodriguezssh']) {
+                    sh 'cd app && scp -r -o StrictHostKeyChecking=no deployment.yaml digesetuser@148.213.1.131:/home/digesetuser/'      
+                    script{        
+                        try{           
+                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl apply -f deployment.yaml --kubeconfig=/home/digesetuser/.kube/config'           
+                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout restart deployment app --kubeconfig=/home/digesetuser/.kube/config'
+                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status deployment app --kubeconfig=/home/digesetuser/.kube/config'          
+                        }catch(error)       
+                        {}
+                }
+            }                
+        }
     }
 }

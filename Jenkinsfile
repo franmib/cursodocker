@@ -78,7 +78,7 @@ pipeline {
                     sh 'cd app && scp -r -o StrictHostKeyChecking=no fbo_deployment.yaml digesetuser@148.213.1.131:/home/digesetuser/'      
                     script{        
                         try{           
-                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl apply -f fbo_app.yaml --kubeconfig=/home/digesetuser/.kube/config'           
+                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl apply -f fbo_deployment.yaml --kubeconfig=/home/digesetuser/.kube/config'           
                             sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout restart fbo_app app --kubeconfig=/home/digesetuser/.kube/config'
                             sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status fbo_app app --kubeconfig=/home/digesetuser/.kube/config'          
                         }catch(error)       

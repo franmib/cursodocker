@@ -1,12 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fbo_app  
+  name: fboapp  
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: fbo_app
+      app: fboapp
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -15,27 +15,27 @@ spec:
   template:
     metadata:
       labels:
-        app: fbo_app
-        role: fbo_app
+        app: fboapp
+        role: fboapp
     spec:
       containers:
-        - name: fbo_app
+        - name: fboapp
           image: franmib/curso:devops
           imagePullPolicy: Always
           ports:
             - containerPort: 80
-              name: fbo_app
+              name: fboapp
 
 ​---
 apiVersion: v1
 kind: Service
 metadata:
-  name: fbo_app
+  name: fboapp
   labels:
-    app: fbo_app
+    app: fboapp
 spec:
   selector:
-   app: fbo_app
+   app: fboapp
   type: ClusterIP
   ports:
    - name: http
@@ -43,4 +43,4 @@ spec:
      protocol: TCP
      targetPort: 80
   selector:
-    role: fbo_app
+    role: fboapp

@@ -25,8 +25,7 @@ spec:
           ports:
             - containerPort: 80
               name: fboapp
-
-​---
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -42,5 +41,5 @@ spec:
      port: 80
      protocol: TCP
      targetPort: 80
-  selector:
+selector:
     role: fboapp

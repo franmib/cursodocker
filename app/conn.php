@@ -1,4 +1,4 @@
-<?
+<?php
 	
 
 	$con = mysqli_connect('db','rofot','root');

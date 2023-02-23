@@ -6,7 +6,7 @@ metadata:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: myKey
+  name: mykey
   namespace: fbo
 type: Opaque
 data:
@@ -15,7 +15,7 @@ data:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: fboMySqlData
+  name: fbomysqldata
   namespace: fbo
 spec:
   accessModes:
@@ -27,48 +27,48 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fboMySqlPod
+  name: fbomysqlpod
   namespace: fbo
   labels:
-    app: fboMySqlPod
+    app: fbomysqlpod
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: fboMySqlPod
+      app: fbomysqlpod
   template:
     metadata:
       labels:
-        app: fboMySqlPod
+        app: fbomysqlpod
     spec:
       containers:
-        - name: fboMySqlPod
+        - name: fbomysqlpod
           image: mysql:5.7
           ports:
             - containerPort: 3306
           volumeMounts:
             - mountPath: "/var/lib/mysql"
               subPath: "mysql"
-              name: fboMySqlData
+              name: fbomysqldata
           env:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: myKey
+                  name: mykey
                   key: ROOT_PASSWORD
       volumes:
-        - name: fboMySqlData
+        - name: fbomysqldata
           persistentVolumeClaim:
-            claimName: fboMySqlData
+            claimName: fbomysqldata
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: fboMySqlService
+  name: fbomysqlservice
   namespace: fbo
 spec:
   selector:
-    app: fboMySqlService
+    app: fbomysqlservice
   ports:
   - protocol: TCP
     port: 3306

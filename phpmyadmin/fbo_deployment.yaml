@@ -6,7 +6,7 @@ metadata:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: myKey
+  name: mykey
   namespace: fbo
 type: Opaque
 data:
@@ -15,46 +15,46 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fboPhpMyAdmin
+  name: fbophpmyadmin
   namespace: fbo
   labels:
-    app: fboPhpMyAdmin
+    app: fbophpmyadmin
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: fboPhpMyAdmin
+      app: fbophpmyadmin
   template:
     metadata:
       labels:
-        app: fboPhpMyAdmin
+        app: fbophpmyadmin
     spec:
       containers:
-        - name: fboPhpMyAdmin
+        - name: fbophpmyadmin
           image: franmib/phpmyadmin:devops
           imagePullPolicy: Always
           ports:
             - containerPort: 80
           env:
             - name: PMA_HOST
-              value: fboMySqlService
+              value: fbomysqlservice
             - name: PMA_PORT
               value: "3306"
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: myKey
+                  name: mykey
                   key: ROOT_PASSWORD
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: fboPhpMyAdminService
+  name: fbophpmyadminservice
   namespace: fbo
 spec:
   type: ClusterIP
   selector:
-    app: fboPhpMyAdminService
+    app: fbophpmyadminservice
   ports:
   - protocol: TCP
     port: 80

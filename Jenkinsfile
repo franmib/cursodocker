@@ -31,11 +31,7 @@ pipeline {
                     }
                 }
 
-                dir('mysql8') {
-                    script {
-                        dockerImage3 = docker.build dockerImageFile3
-                    }
-                }
+                
             }
 
         }
@@ -61,15 +57,7 @@ pipeline {
                         }
                     }
                 }
-
-                dir('mysql8') {
-                    script {
-                        docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
-
-                            dockerImage3.push("devops") //ahí va el tag
-                        }
-                    }
-                }
+               
             }
         }
         stage('Correr POD'){
@@ -81,6 +69,26 @@ pipeline {
                             sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl apply -f fbo_deployment.yaml -n fbo --kubeconfig=/home/digesetuser/.kube/config'           
                             sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout restart fboapp -n fbo --kubeconfig=/home/digesetuser/.kube/config'
                             sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status  fboapp -n fbo --kubeconfig=/home/digesetuser/.kube/config'          
+                        }catch(error)       
+                        {}
+                    }
+
+                    sh 'cd mysql8 && scp -r -o StrictHostKeyChecking=no fbo_deployment.yaml digesetuser@148.213.1.131:/home/digesetuser/'      
+                    script{        
+                        try{           
+                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl apply -f fbo_deployment.yaml -n fbo --kubeconfig=/home/digesetuser/.kube/config'           
+                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout restart fboMySqlPod -n fbo --kubeconfig=/home/digesetuser/.kube/config'
+                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status  fbofboMySqlPod -n fbo --kubeconfig=/home/digesetuser/.kube/config'          
+                        }catch(error)       
+                        {}
+                    }
+
+                    sh 'cd phpmyadmin && scp -r -o StrictHostKeyChecking=no fbo_deployment.yaml digesetuser@148.213.1.131:/home/digesetuser/'      
+                    script{        
+                        try{           
+                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl apply -f fbo_deployment.yaml -n fbo --kubeconfig=/home/digesetuser/.kube/config'           
+                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout restart fboPhpMyAdmin -n fbo --kubeconfig=/home/digesetuser/.kube/config'
+                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status  fboPhpMyAdmin -n fbo --kubeconfig=/home/digesetuser/.kube/config'          
                         }catch(error)       
                         {}
                     }

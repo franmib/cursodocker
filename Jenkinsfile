@@ -77,8 +77,8 @@ pipeline {
                     script{        
                         try{           
                             sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl apply -f fbo_deployment.yaml -n fbo --kubeconfig=/home/digesetuser/.kube/config'           
-                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout restart fboMySqlPod -n fbo --kubeconfig=/home/digesetuser/.kube/config'
-                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status  fbofboMySqlPod -n fbo --kubeconfig=/home/digesetuser/.kube/config'          
+                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout restart fbomysqlpod -n fbo --kubeconfig=/home/digesetuser/.kube/config'
+                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status  fbomysqlpod -n fbo --kubeconfig=/home/digesetuser/.kube/config'          
                         }catch(error)       
                         {}
                     }
@@ -87,8 +87,8 @@ pipeline {
                     script{        
                         try{           
                             sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl apply -f fbo_deployment.yaml -n fbo --kubeconfig=/home/digesetuser/.kube/config'           
-                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout restart fboPhpMyAdmin -n fbo --kubeconfig=/home/digesetuser/.kube/config'
-                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status  fboPhpMyAdmin -n fbo --kubeconfig=/home/digesetuser/.kube/config'          
+                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout restart fbophpmyadmin -n fbo --kubeconfig=/home/digesetuser/.kube/config'
+                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status  fbophpmyadmin -n fbo --kubeconfig=/home/digesetuser/.kube/config'          
                         }catch(error)       
                         {}
                     }

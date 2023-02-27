@@ -49,12 +49,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: fbophpmyadminservice
+  name: fbopma
   namespace: fbo
 spec:
   type: ClusterIP
   selector:
-    app: fbophpmyadminservice
+    app: fbopma
   ports:
   - protocol: TCP
     port: 80

@@ -1,4 +1,4 @@
-FROM phpmyadmin:5.2.1-apache
+FROM phpmyadmin/phpmyadmin
 COPY ./000-default.conf /etc/apache2/sites-available/000-default.conf
 
 RUN a2enmod rewrite

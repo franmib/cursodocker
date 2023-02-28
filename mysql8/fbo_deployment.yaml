@@ -68,7 +68,7 @@ metadata:
   namespace: fbo
 spec:
   selector:
-    app: fbomysqlservice
+    app: fbomysqlpod
   ports:
   - protocol: TCP
     port: 3306

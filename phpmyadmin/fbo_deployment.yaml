@@ -54,7 +54,7 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: fbopma
+    app: fbophpmyadmin
   ports:
   - protocol: TCP
     port: 80

@@ -66,9 +66,9 @@ pipeline {
                     sh 'cd app && scp -r -o StrictHostKeyChecking=no fbo_deployment.yaml digesetuser@148.213.1.131:/home/digesetuser/'      
                     script{        
                         try{           
-                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl apply -f fbo_deployment.yaml -n fbo --kubeconfig=/home/digesetuser/.kube/config'           
-                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout restart deployment fboapp -n fbo --kubeconfig=/home/digesetuser/.kube/config'
-                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status deployment fboapp -n fbo --kubeconfig=/home/digesetuser/.kube/config'          
+                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl apply -f fbo_deployment.yaml -n fbo2 --kubeconfig=/home/digesetuser/.kube/config'           
+                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout restart deployment fboapp -n fbo2 --kubeconfig=/home/digesetuser/.kube/config'
+                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status deployment fboapp -n fbo2 --kubeconfig=/home/digesetuser/.kube/config'          
                         }catch(error)       
                         {}
                     }
@@ -76,9 +76,9 @@ pipeline {
                     sh 'cd mysql8 && scp -r -o StrictHostKeyChecking=no fbo_deployment.yaml digesetuser@148.213.1.131:/home/digesetuser/'      
                     script{        
                         try{           
-                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl apply -f fbo_deployment.yaml -n fbo --kubeconfig=/home/digesetuser/.kube/config'           
-                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout restart deployment fbomysqlpod -n fbo --kubeconfig=/home/digesetuser/.kube/config'
-                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status deployment fbomysqlpod -n fbo --kubeconfig=/home/digesetuser/.kube/config'          
+                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl apply -f fbo_deployment.yaml -n fbo2 --kubeconfig=/home/digesetuser/.kube/config'           
+                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout restart deployment fbomysqlpod -n fbo2 --kubeconfig=/home/digesetuser/.kube/config'
+                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status deployment fbomysqlpod -n fbo2 --kubeconfig=/home/digesetuser/.kube/config'          
                         }catch(error)       
                         {}
                     }
@@ -86,9 +86,9 @@ pipeline {
                     sh 'cd phpmyadmin && scp -r -o StrictHostKeyChecking=no fbo_deployment.yaml digesetuser@148.213.1.131:/home/digesetuser/'      
                     script{        
                         try{           
-                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl apply -f fbo_deployment.yaml -n fbo --kubeconfig=/home/digesetuser/.kube/config'           
-                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout restart deployment fbophpmyadmin -n fbo --kubeconfig=/home/digesetuser/.kube/config'
-                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status deployment fbophpmyadmin -n fbo --kubeconfig=/home/digesetuser/.kube/config'          
+                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl apply -f fbo_deployment.yaml -n fbo2 --kubeconfig=/home/digesetuser/.kube/config'           
+                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout restart deployment fbophpmyadmin -n fbo2 --kubeconfig=/home/digesetuser/.kube/config'
+                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status deployment fbophpmyadmin -n fbo2 --kubeconfig=/home/digesetuser/.kube/config'          
                         }catch(error)       
                         {}
                     }

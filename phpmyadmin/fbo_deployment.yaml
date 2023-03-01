@@ -1,24 +1,13 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: fbo
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: mykey
-  namespace: fbo
-type: Opaque
-data:
-  ROOT_PASSWORD: ZW5taW1hcXVpbmFzaWZ1bmNpb25h
+  name: fbo2
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fbophpmyadmin
-  namespace: fbo
-  labels:
-    app: fbophpmyadmin
+  name: fbophpmyadmin-deployment
+  namespace: fbo2
 spec:
   replicas: 1
   selector:
@@ -32,25 +21,28 @@ spec:
       containers:
         - name: fbophpmyadmin
           image: franmib/phpmyadmin:devops
-          imagePullPolicy: Always
           ports:
             - containerPort: 80
           env:
             - name: PMA_HOST
-              value: fbomysqlservice
-            - name: PMA_PORT
-              value: "3306"
-            - name: MYSQL_ROOT_PASSWORD
+              value: fbomysql-service
+            - name: PMA_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: mykey
-                  key: ROOT_PASSWORD
+                  name: fbomysql-secrets
+                  key: password
+          volumeMounts:
+            - name: sessions
+              mountPath: /sessions
+      volumes:
+        - name: sessions
+          emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: fbopma
-  namespace: fbo
+  name: fbophpmyadmin-service
+  namespace: fbo2
 spec:
   type: ClusterIP
   selector:

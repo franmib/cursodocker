@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: fboapp
-  namespace: fbo  
+  namespace: fbo2  
 spec:
   replicas: 1
   selector:
@@ -31,7 +31,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: fboapp
-  namespace: fbo
+  namespace: fbo2
   labels:
     app: fboapp
 spec:

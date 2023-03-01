@@ -1,22 +1,13 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: fbo
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: mykey
-  namespace: fbo
-type: Opaque
-data:
-  ROOT_PASSWORD: ZW5taW1hcXVpbmFzaWZ1bmNpb25h
+  name: fbo2
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: fbomysqldata
-  namespace: fbo
+  name: fbomysql-data-disk
+  namespace: fbo2
 spec:
   accessModes:
     - ReadWriteOnce
@@ -24,52 +15,60 @@ spec:
     requests:
       storage: 1Gi
 ---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: fbomysql-secrets
+  namespace: fbo2
+type: Opaque
+data:
+  password: c3VwZXI=
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fbomysqlpod
-  namespace: fbo
-  labels:
-    app: fbomysqlpod
+  name: fbomysql-deployment
+  namespace: fbo2
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: fbomysqlpod
+      app: fbomysql
   template:
     metadata:
       labels:
-        app: fbomysqlpod
+        app: fbomysql
     spec:
       containers:
-        - name: fbomysqlpod
-          image: mysql:5.7
-          ports:
-            - containerPort: 3306
-          volumeMounts:
-            - mountPath: "/var/lib/mysql"
-              subPath: "mysql"
-              name: fbomysqldata
+        - name: fbomysql
+          image: mysql:8.0
           env:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: mykey
-                  key: ROOT_PASSWORD
+                  name: fbomysql-secrets
+                  key: password
+          ports:
+            - containerPort: 3306
+              name: fbomysql
+          volumeMounts:
+            - name: fbomysql-data
+              mountPath: /var/lib/mysql
       volumes:
-        - name: fbomysqldata
+        - name: fbomysql-data
           persistentVolumeClaim:
-            claimName: fbomysqldata
+            claimName: fbomysql-data-disk
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: fbomysqlservice
-  namespace: fbo
+  name: fbomysql-service
+  namespace: fbo2
 spec:
   selector:
-    app: fbomysqlpod
+    app: fbomysql
+  type: ClusterIP
   ports:
-  - protocol: TCP
-    port: 3306
-    targetPort: 3306
+    - name: fbomysql
+      port: 3306
+      targetPort: 3306

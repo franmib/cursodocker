@@ -77,8 +77,8 @@ pipeline {
                     script{        
                         try{           
                             sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl apply -f fbo_deployment.yaml -n fbo2 --kubeconfig=/home/digesetuser/.kube/config'           
-                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout restart deployment fbomysqlpod -n fbo2 --kubeconfig=/home/digesetuser/.kube/config'
-                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status deployment fbomysqlpod -n fbo2 --kubeconfig=/home/digesetuser/.kube/config'          
+                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout restart deployment fbomysql-deployment -n fbo2 --kubeconfig=/home/digesetuser/.kube/config'
+                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status deployment fbomysql-deployment -n fbo2 --kubeconfig=/home/digesetuser/.kube/config'          
                         }catch(error)       
                         {}
                     }
@@ -87,8 +87,8 @@ pipeline {
                     script{        
                         try{           
                             sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl apply -f fbo_deployment.yaml -n fbo2 --kubeconfig=/home/digesetuser/.kube/config'           
-                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout restart deployment fbophpmyadmin -n fbo2 --kubeconfig=/home/digesetuser/.kube/config'
-                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status deployment fbophpmyadmin -n fbo2 --kubeconfig=/home/digesetuser/.kube/config'          
+                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout restart deployment fbophpmyadmin-deployment -n fbo2 --kubeconfig=/home/digesetuser/.kube/config'
+                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status deployment fbophpmyadmin-deployment -n fbo2 --kubeconfig=/home/digesetuser/.kube/config'          
                         }catch(error)       
                         {}
                     }

@@ -102,8 +102,7 @@ pipeline {
             slackSend channel: 'prueba_pipeline_fbo', color: 'good', failOnError: true, message: "${custom_msg()}", teamDomain: 'universidadde-bea3869', tokenCredentialId: 'slackpass' 
         }
     }
-
-
+    
     def custom_msg()
     {
         def JENKINS_URL= "jarvis.ucol.mx:8080"

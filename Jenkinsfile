@@ -99,7 +99,7 @@ pipeline {
     post
     {
         success{
-            slackSend channel: 'prueba_pipeline_fbo', color: 'good', failOnError: true, message: "${custom_msg()}", teamDomain: 'universidadde-bea3869', tokenCredentialId: 'slackpass' 
+            slackSend channel: 'prueba_pipeline_heap', color: 'good', failOnError: true, message: "${custom_msg()}", teamDomain: 'universidadde-bea3869', tokenCredentialId: 'slackpass' 
         }
     }
 }

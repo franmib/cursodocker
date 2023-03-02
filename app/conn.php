@@ -1,7 +1,7 @@
 <?php
 	
 
-	$con = mysqli_connect('db','rofot','root');
+	$con = mysqli_connect('db','root','super');
 	
 	if (isset($con)) {
 		
@@ -15,7 +15,7 @@
 		
 		if($result) {
 			while($row = mysqli_fetch_array($result)){
-				$name = $row["pruebacol"];
+				$name = $row["col"];
 				echo $name." ";
 			}
 		}

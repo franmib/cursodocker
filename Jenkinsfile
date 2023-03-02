@@ -68,7 +68,7 @@ pipeline {
                         try{           
                             sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl apply -f fbo_deployment.yaml -n fbo2 --kubeconfig=/home/digesetuser/.kube/config'           
                             sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout restart deployment fboapp -n fbo2 --kubeconfig=/home/digesetuser/.kube/config'
-                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status deployment fboapp -n fbo2 --kubeconfig=/home/digesetuser/.kube/config'          
+                            //sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status deployment fboapp -n fbo2 --kubeconfig=/home/digesetuser/.kube/config'          
                         }catch(error)       
                         {}
                     }
@@ -78,7 +78,7 @@ pipeline {
                         try{           
                             sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl apply -f fbo_deployment.yaml -n fbo2 --kubeconfig=/home/digesetuser/.kube/config'           
                             sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout restart deployment fbomysql-deployment -n fbo2 --kubeconfig=/home/digesetuser/.kube/config'
-                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status deployment fbomysql-deployment -n fbo2 --kubeconfig=/home/digesetuser/.kube/config'          
+                            //sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status deployment fbomysql-deployment -n fbo2 --kubeconfig=/home/digesetuser/.kube/config'          
                         }catch(error)       
                         {}
                     }
@@ -88,7 +88,7 @@ pipeline {
                         try{           
                             sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl apply -f fbo_deployment.yaml -n fbo2 --kubeconfig=/home/digesetuser/.kube/config'           
                             sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout restart deployment fbophpmyadmin-deployment -n fbo2 --kubeconfig=/home/digesetuser/.kube/config'
-                            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status deployment fbophpmyadmin-deployment -n fbo2 --kubeconfig=/home/digesetuser/.kube/config'          
+                            //sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status deployment fbophpmyadmin-deployment -n fbo2 --kubeconfig=/home/digesetuser/.kube/config'          
                         }catch(error)       
                         {}
                     }

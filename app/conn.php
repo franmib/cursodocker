@@ -1,7 +1,7 @@
 <?php
 	
 
-	$con = mysqli_connect('db','root','super');
+	$con = mysqli_connect('fbomysql-service:3306','root','super');
 	
 	if (isset($con)) {
 		

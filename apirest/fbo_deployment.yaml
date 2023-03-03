@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fboapi
+  namespace: fbo2  
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fboapi
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+        maxSurge: 0
+        maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: fboapi
+        role: fboapi
+    spec:
+      containers:
+        - name: fboapi
+          image: franmib/net7nativecontainer:1.0.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              name: fboapi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fboapi
+  namespace: fbo2
+  labels:
+    app: fboapi
+spec:
+  selector:
+   app: fboapi
+  type: ClusterIP
+  ports:
+   - name: http
+     port: 80
+     protocol: TCP
+     targetPort: 80
+  selector:
+    role: fboapi
